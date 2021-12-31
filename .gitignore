@@ -1,0 +1,9 @@
+node_modules/**
+.DS_Store
+*.jpg
+*.wav
+*.png
+*.jpeg
+*.mp4
+*.gif
+audio
