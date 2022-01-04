@@ -1,0 +1,18 @@
+{
+  "name": "songdownloader",
+  "version": "1.0.0",
+  "description": "downloads songs based on string from songcloud",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "jquery": "^3.6.0",
+    "soundcloud-scraper": "^5.0.2"
+  }
+}
