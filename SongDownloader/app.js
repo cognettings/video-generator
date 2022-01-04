@@ -1,6 +1,7 @@
 const SoundCloud = require("soundcloud-scraper");
 const client = new SoundCloud.Client();
 const fs = require("fs");
+let server // call close() on this to end the program (assigned by app.listen() below)
 
 async function downloadSong( url = "", query = "errorQuery",res)
 {
@@ -16,7 +17,9 @@ async function downloadSong( url = "", query = "errorQuery",res)
           // const writer = stream.pipe(fs.createWriteStream(`./${song.title}.mp3`));
           writer.on("finish", () => {
             console.log("Finished writing song!")
-            res.sendFile(path.join(__dirname+'/audio.mp3'));
+            res.sendFile(path.join(__dirname+'/audio.mp3'), undefined, () => {
+              server.close()
+            });
           });
           return true
       })
@@ -102,6 +105,6 @@ app.post('/songSearch',jsonParser, async function(req,res){
 //add the router
 
 app.use('/', router);
-app.listen(process.env.port || 3000);
+server = app.listen(process.env.port || 3000);
 
 console.log('Running at Port 3000');

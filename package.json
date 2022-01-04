@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "images-scraper": "^6.4.0"
+  },
+  "scripts": {
+    "install": "cd SongDownloader; npm install",
+    "prestart": "cd SongDownloader; npm start &",
+    "start": "./generateVideo.sh"
   }
 }
