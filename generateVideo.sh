@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # scrape image urls then download the files
-node scrapeImageUrls.js "$1" $2 | wget --directory-prefix=output/"$1" -i - &&
+node imageDownloader.js "$1" $2 &&
 
 # resize the images
 mogrify -format jpg -resize 1280x720 -gravity center -background black -extent 1280x720 ./output/"$1"/* &&
