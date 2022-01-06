@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "ffmpeg-static": "^4.4.1",
+    "image-magick-js": "^0.1.12",
     "images-scraper": "^6.4.0"
   },
   "scripts": {
