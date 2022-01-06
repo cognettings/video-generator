@@ -38,7 +38,7 @@ async function main () {
 
   httpsUrls.forEach((url, i) => {
     const request = https.get(url, function (response) {
-      const file = fs.createWriteStream(`${outputDir}/httpsImage${i}`)
+      const file = fs.createWriteStream(`${outputDir}/httpsImage${i}.image`)
       response.pipe(file)
       response.on('end', () => {
         console.log('downloaded', url)
@@ -52,7 +52,7 @@ async function main () {
 
   httpUrls.forEach((url, i) => {
     const request = http.get(url, function (response) {
-      const file = fs.createWriteStream(`${outputDir}/httpImage${i}`)
+      const file = fs.createWriteStream(`${outputDir}/httpImage${i}.image`)
       response.pipe(file)
       response.on('end', () => {
         console.log('downloaded', url)
