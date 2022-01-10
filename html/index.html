@@ -1,0 +1,25 @@
+<input id="searchTerm" type="text" placeholder="search term...">
+<input id="numberOfImages" type="text" placeholder="number of images...">
+<input type="button" value="Generate Video" onclick="generateVideo()">
+<p>Note: minimum time to generate a video is 30 seconds, but may take more than a minute.</p>
+
+<script>
+    async function generateVideo () {
+        const searchTerm = document.getElementById('searchTerm').value.trim()
+        const numberOfImages = document.getElementById('numberOfImages').value.trim()
+
+        if (searchTerm === '' || isNaN(numberOfImages)) {
+           window.alert('Invalid input values.')
+           return
+        }
+
+        const response = await fetch(`http://vgen.serverpit.com/generateVideo?q=${searchTerm}&n=${numberOfImages}`)
+
+        console.log(response)
+        document.getElementById('video').src = `http://vgen.serverpit.com/video?q=${searchTerm}`
+    }
+</script>
+
+<video id="video" controls autoplay></video>
+
+<br/>Domain name provided by <a href="http://freedns.afraid.org/">Free DNS</a>
