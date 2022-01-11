@@ -15,7 +15,7 @@ curl -d "{\"query\":\"$1\"}" -H "Content-Type: application/json" -X POST http://
 
 # create video
 cd output/"$1" &&
-$(node ../../ffmpeg.js) -framerate 1 -pattern_type glob -i '*.jpg' -i audio -map 0:v -map 1:a -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -c:v libx264 -r 30 -t 100.0 "$1".mp4 &&
+$(node ../../ffmpeg.js) -framerate 1 -pattern_type glob -i '*.jpg' -i audio -map 0:v -map 1:a -c:v libx264 -c:a aac -pix_fmt yuv420p -profile:v baseline -level 3 -r 30 -t 100.0 "$1".mp4
 # cd - &&
 cd -
 

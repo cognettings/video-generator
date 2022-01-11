@@ -16,10 +16,19 @@
         const response = await fetch(`http://vgen.serverpit.com/generateVideo?q=${searchTerm}&n=${numberOfImages}`)
 
         console.log(response)
-        document.getElementById('video').src = `http://vgen.serverpit.com/video?q=${searchTerm}`
+        document.getElementsByTagName('video')[0].remove()
+        const video = document.createElement('video')
+        video.setAttribute('controls', true)
+        video.setAttribute('autoplay', true)
+        video.setAttribute('playsinline', true)
+        video.setAttribute('muted', true)
+        video.setAttribute('src', `http://vgen.serverpit.com/video?q=${searchTerm}`)
+        document.body.appendChild(video)
     }
 </script>
 
-<video id="video" controls autoplay></video>
+Domain name provided by <a href="http://freedns.afraid.org/">Free DNS</a>
 
-<br/>Domain name provided by <a href="http://freedns.afraid.org/">Free DNS</a>
+<br/>
+
+<video id="video" controls autoplay playsinline muted></video>
