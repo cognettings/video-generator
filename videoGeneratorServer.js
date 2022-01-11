@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
 const app = express()
 const fs = require('fs')
 const port = 3001
@@ -10,10 +10,6 @@ app.use(cors())
 app.options('*', cors())
 
 app.use(express.static('html'))
-
-app.get('/', (req, res) => {
-  res.send(`Hello World! ${Date.now()}`)
-})
 
 app.get('/video', (req, res) => {
   const searchTerm = req.query.q
@@ -47,17 +43,26 @@ app.get('/generateVideo', (req, res) => {
       console.log('need to create')
     }
 
-    execute(`npm run generateForServer "${searchTerm}" ${numberOfImages}`, (stdout) => {
-      console.log('done', stdout)
-      res.sendFile(`./output/${searchTerm}/${searchTerm}.mp4`, { root: __dirname })
-      // res.download(`./output/${searchTerm}/${searchTerm}.mp4`)
+    const generate = spawn('npm', ['run', 'generateForServer', searchTerm, numberOfImages])
+
+    generate.stdout.on('data', data => {
+      console.log(`${data}`)
+    })
+
+    generate.stderr.on('data', data => {
+      console.log(`${data}`)
+    })
+
+    generate.on('close', code => {
+      console.log(`generate finished with code ${code}`)
+      if (code !== 0) {
+        res.status(500).end()
+      } else {
+        res.sendFile(`./output/${searchTerm}/${searchTerm}.mp4`, { root: __dirname })
+      }
     })
   }
 })
-
-function execute(command, callback){
-    exec(command, function(error, stdout, stderr){ callback(stdout); });
-};
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -4,10 +4,12 @@
 node thumbnailImageDownloader.js "$1" $2 &&
 
 # resize the images
+echo converting the images &&
 node imageMagick.js "mogrify -format jpg -resize 1280x720 -gravity center -background black -extent 1280x720 ./output/\"$1\"/*.image" &&
 
 # download audio
 # node downloadAudio.js "$1" &&
+echo downloading the audio &&
 curl -d "{\"query\":\"$1\"}" -H "Content-Type: application/json" -X POST http://localhost:3000/main -o output/"$1"/audio &&
 # curl -d "{\"query\":\"cat\"}" -H "Content-Type: application/json" -X POST http://localhost:3000/main -o audio
 
