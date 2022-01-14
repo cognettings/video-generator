@@ -1,5 +1,5 @@
 const ImageScraper = require('./thumbnailScraper.js')
-const download = require('./synchronousFileDownloader.js')
+const download = require('./asynchronousFileDownloader.js')
 
 const scraper = new ImageScraper()
 
