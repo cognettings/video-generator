@@ -1,0 +1,25 @@
+x add home page to generate a video
+x truncate video to 100 seconds
+x output generation output as it happens (don't wait until it finishes to log the output)
+x improve image downloading speed (reuse browser)
+x better styling so it's easier to use on mobile
+- show status messages in the browser
+- add download button
+- delete downloaded assets if on heroku
+- ship it (amazon farsight or heroku)
+- yet better styling
+
+- add number of images to filename (so people can recreate video with different params)
+- gracefully fail when not able to download an image
+- remove gifs
+- remove images that imagemagick failed to convert fully
+- remove duplicates
+- remove quotes from search term (it failed when user entered "Justin Irish" into webpage)
+- ensure audio file is actually an audio file
+
+
+
+
+
+other features
+- change picture to the beat of the music/audio
