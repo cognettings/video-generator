@@ -34,13 +34,14 @@
       <p>
         Topic: <input id="searchTerm" type="text" placeholder="pug puppies" />
       </p>
-        <input type="button" value="Generate" onclick="generateVideo()" />
+      <input type="button" value="Generate" onclick="generateVideo()" />
     </div>
     <p>
       Note: minimum time to generate a video is 30 seconds, but may take more
       than a minute.
     </p>
     <video id="video" controls autoplay playsinline muted></video>
+    <div id="status"></div>
     <footer>
       &copy 2022 |
       <a href="mailto:cognettings@gmail.com">cognettings@gmail.com</a> | Domain
@@ -49,6 +50,8 @@
     </footer>
     <script>
       async function generateVideo () {
+        clearStatusMessages()
+
         const searchTerm = document.getElementById('searchTerm').value.trim()
         const numberOfImages = 60
 
@@ -57,22 +60,62 @@
           return
         }
 
-        const response = await fetch(
+        fetch(
           `http://vgen.serverpit.com/generateVideo?q=${searchTerm}&n=${numberOfImages}`
-        )
+        ).then(response => {
+          const reader = response.body.getReader()
 
-        console.log(response)
-        document.getElementsByTagName('video')[0].remove()
-        const video = document.createElement('video')
-        video.setAttribute('controls', true)
-        video.setAttribute('autoplay', true)
-        video.setAttribute('playsinline', true)
-        video.setAttribute('muted', true)
-        video.setAttribute(
-          'src',
-          `http://vgen.serverpit.com/video?q=${searchTerm}`
-        )
-        document.body.appendChild(video)
+          read(reader)
+
+          const decoder = new TextDecoder()
+
+          function read (r) {
+            r.read().then(function processText ({ done, value }) {
+              const msg = decoder.decode(value)
+              console.log(msg)
+              // addStatusMessage(msg)
+              updateStatusMessage(msg)
+
+              if (!done) {
+                read(r)
+              } else {
+                setVideo(searchTerm)
+              }
+            })
+          }
+        })
+
+        function setVideo (searchTerm) {
+          document.getElementsByTagName('video')[0].remove()
+          const video = document.createElement('video')
+          video.setAttribute('controls', true)
+          video.setAttribute('autoplay', true)
+          video.setAttribute('playsinline', true)
+          video.setAttribute('muted', true)
+          video.setAttribute(
+            'src',
+            `http://vgen.serverpit.com/video?q=${searchTerm}`
+          )
+          document.body.appendChild(video)
+        }
+      }
+
+      function addStatusMessage (msg) {
+        const statusEl = document.getElementById('status')
+        const msgEl = document.createElement('p')
+        msgEl.innerText = msg
+
+        statusEl.appendChild(msgEl)
+      }
+
+      function clearStatusMessages () {
+        const statusEl = document.getElementById('status')
+        statusEl.innerHTML = ''
+      }
+
+      function updateStatusMessage (msg) {
+        clearStatusMessages()
+        addStatusMessage(msg)
       }
     </script>
   </body>

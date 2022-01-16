@@ -47,10 +47,12 @@ app.get('/generateVideo', (req, res) => {
 
     generate.stdout.on('data', data => {
       console.log(`${data}`)
+      res.write(`${data}`)
     })
 
     generate.stderr.on('data', data => {
       console.log(`${data}`)
+      res.write(`${data}`)
     })
 
     generate.on('close', code => {
@@ -58,7 +60,8 @@ app.get('/generateVideo', (req, res) => {
       if (code !== 0) {
         res.status(500).end()
       } else {
-        res.sendFile(`./output/${searchTerm}/${searchTerm}.mp4`, { root: __dirname })
+        // res.sendFile(`./output/${searchTerm}/${searchTerm}.mp4`, { root: __dirname })
+        res.end()
       }
     })
   }
