@@ -1,19 +1,62 @@
-<input id="searchTerm" type="text" placeholder="search term...">
-<input id="numberOfImages" type="text" placeholder="number of images...">
-<input type="button" value="Generate Video" onclick="generateVideo()">
-<p>Note: minimum time to generate a video is 30 seconds, but may take more than a minute.</p>
+<html>
+  <head>
+    <title>Video Generator</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-<script>
-    async function generateVideo () {
+      footer {
+        position: fixed;
+        bottom: 0;
+      }
+
+      video {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Video Generator</h1>
+    </header>
+    <div style="display: flex; flex-direction: column;">
+      <p>
+        Topic: <input id="searchTerm" type="text" placeholder="pug puppies" />
+      </p>
+        <input type="button" value="Generate" onclick="generateVideo()" />
+    </div>
+    <p>
+      Note: minimum time to generate a video is 30 seconds, but may take more
+      than a minute.
+    </p>
+    <video id="video" controls autoplay playsinline muted></video>
+    <footer>
+      &copy 2022 |
+      <a href="mailto:cognettings@gmail.com">cognettings@gmail.com</a> | Domain
+      name provided by
+      <a href="http://freedns.afraid.org/">Free DNS</a>
+    </footer>
+    <script>
+      async function generateVideo () {
         const searchTerm = document.getElementById('searchTerm').value.trim()
-        const numberOfImages = document.getElementById('numberOfImages').value.trim()
+        const numberOfImages = 60
 
         if (searchTerm === '' || isNaN(numberOfImages)) {
-           window.alert('Invalid input values.')
-           return
+          window.alert('Invalid input values.')
+          return
         }
 
-        const response = await fetch(`http://vgen.serverpit.com/generateVideo?q=${searchTerm}&n=${numberOfImages}`)
+        const response = await fetch(
+          `http://vgen.serverpit.com/generateVideo?q=${searchTerm}&n=${numberOfImages}`
+        )
 
         console.log(response)
         document.getElementsByTagName('video')[0].remove()
@@ -22,13 +65,12 @@
         video.setAttribute('autoplay', true)
         video.setAttribute('playsinline', true)
         video.setAttribute('muted', true)
-        video.setAttribute('src', `http://vgen.serverpit.com/video?q=${searchTerm}`)
+        video.setAttribute(
+          'src',
+          `http://vgen.serverpit.com/video?q=${searchTerm}`
+        )
         document.body.appendChild(video)
-    }
-</script>
-
-Domain name provided by <a href="http://freedns.afraid.org/">Free DNS</a>
-
-<br/>
-
-<video id="video" controls autoplay playsinline muted></video>
+      }
+    </script>
+  </body>
+</html>

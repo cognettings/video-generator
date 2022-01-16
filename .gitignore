@@ -10,3 +10,4 @@ audio
 output
 httpImage*
 httpsImage*
+!html/*.png
