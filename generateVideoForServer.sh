@@ -5,7 +5,8 @@ node thumbnailImageDownloader.js "$1" $2 &&
 
 # resize the images
 echo converting the images &&
-node imageMagick.js "mogrify -format jpg -resize 1280x720 -gravity center -background black -extent 1280x720 ./output/\"$1\"/*.image" &&
+# node imageMagick.js "mogrify -format jpg -resize 1280x720 -gravity center -background black -extent 1280x720 ./output/\"$1\"/*.image" &&
+node resizeImages.js "./output/$1/"
 
 # download audio
 # node downloadAudio.js "$1" &&
