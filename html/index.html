@@ -59,9 +59,8 @@
           return
         }
 
-        console.log(`http://${location.host}/generateVideo?q=${searchTerm}&n=${numberOfImages}`)
         fetch(
-          `http://${location.host}/generateVideo?q=${searchTerm}&n=${numberOfImages}`
+          `${location.protocol}//${location.host}/generateVideo?q=${searchTerm}&n=${numberOfImages}`
         ).then(response => {
           const reader = response.body.getReader()
 
@@ -94,7 +93,7 @@
           video.setAttribute('muted', true)
           video.setAttribute(
             'src',
-            `http://${location.host}/video?q=${searchTerm}`
+            `${location.protocol}//${location.host}/video?q=${searchTerm}`
           )
           document.body.appendChild(video)
         }
