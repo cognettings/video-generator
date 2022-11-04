@@ -12,7 +12,8 @@ exports.handler = async (event) => {
     // const filename = '/tmp/temp.txt'
     // await fsp.writeFile(filename, 'generated text file')
 
-    const s3Name = `${topic.replace(' ', '+')}.mp4`
+    // const s3Name = `${topic.replaceAll(' ', '+')}.mp4` // getting a 403 error when I have spaces in my name...weird
+    const s3Name = topic
     const params = {
          Body: readStream,
          Bucket: "cogs-asset-uploads-resized",
