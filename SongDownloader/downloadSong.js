@@ -4,6 +4,12 @@ const fs = require('fs')
 
 module.exports = downloadSong
 
+// allow script to by directly run. e.g.
+// node downloadSong.js everquest
+if (!module.parent) {
+  downloadSong(process.argv[2], process.argv[3])
+}
+
 async function downloadSong (topic, dir = './') {
   const searchResults = await client.search(topic, 'track')
 
