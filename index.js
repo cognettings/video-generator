@@ -7,6 +7,8 @@ const s3Client = new S3()
 exports.handler = async (event) => {
     const { topic, numberOfImages, duration } = event.queryStringParameters ?? {}
 
+    console.log('received request to create', topic, numberOfImages, duration)
+
     const readStream = await generateVideo(topic ?? 'everquest', numberOfImages ?? 15, duration ?? 30)
 
     // const filename = '/tmp/temp.txt'
