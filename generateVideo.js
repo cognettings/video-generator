@@ -11,8 +11,8 @@ module.exports = generateVideo
 
 // if script is directly run
 if (!module.parent) {
-  const [node, script, topic] = process.argv
-  generateVideo(topic)
+  const [node, script, topic, numberOfImages, duration] = process.argv
+  generateVideo(topic, numberOfImages, duration)
 }
 
 async function generateVideo (topic, numberOfImages = 10, duration = 60) {
