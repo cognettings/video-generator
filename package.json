@@ -12,7 +12,6 @@
     "start": "./generateVideo.sh",
     "pregenerateForServer": "cd SongDownloader; npm start &",
     "generateForServer": "./generateVideoForServer.sh",
-    "startServer": "node videoGeneratorServer.js",
-    "createLambdaZip": "zip -r lambda.zip SongDownloader/ node_modules asynchronousFileDownloader.js ffmpeg.js generateVideo.js imageDownloader.js index.js package-lock.json package.json resizeImages.js scrapeImageUrls.js thumbnailImageDownloader.js thumbnailScraper.js"
+    "startServer": "DATADIR='./output/' node videoGeneratorServer.js",
   }
 }
