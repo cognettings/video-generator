@@ -17,7 +17,7 @@ module.exports = async function download (
   }
 
   const requests = urls.map((url, i) => {
-    return downloadHelper(url, `./${dir}/${baseFilename}${i}${fileExtension}`)
+    return downloadHelper(url, `${dir}/${baseFilename}${i}${fileExtension}`)
   })
 
   return Promise.all(requests)
