@@ -8,7 +8,7 @@ if (!module.parent) {
 
 async function main (topic) {
   topic = topic ?? process.argv[2]
-  const dir = `./output/${topic}/`
+  const dir = `${process.env.DATADIR}${topic}/`
 
   const files = await fs.readdir(dir)
   const images = files.filter(file => file.endsWith('.image'))
