@@ -9,6 +9,14 @@ exports.handler = async (event) => {
 
     console.log('received request to create', topic, numberOfImages, duration)
 
+    if (!topic) {
+        const response = {
+            statusCode: 200,
+            body: 'Topic is missing. Add the "topic" query param to the url.'
+        };
+        return response;
+    }
+
     const readStream = await generateVideo(topic ?? 'everquest', numberOfImages ?? 15, duration ?? 30)
 
     // const filename = '/tmp/temp.txt'
