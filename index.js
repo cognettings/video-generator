@@ -7,7 +7,7 @@ const s3Client = new S3()
 exports.handler = async (event) => {
     const { topic, numberOfImages, duration } = event.queryStringParameters ?? {}
 
-    const readStream = await generateVideo(topic, numberOfImages ?? 10, duration ?? 30)
+    const readStream = await generateVideo(topic ?? 'everquest', numberOfImages ?? 15, duration ?? 30)
 
     // const filename = '/tmp/temp.txt'
     // await fsp.writeFile(filename, 'generated text file')
