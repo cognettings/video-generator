@@ -16,6 +16,9 @@ if (!module.parent) {
 }
 
 async function generateVideo (topic, numberOfImages = 10, duration = 60) {
+  numberOfImages = Math.min(numberOfImages, 120)
+  duration = Math.min(duration, 120)
+
   await thumbnailImageDownloader(topic, numberOfImages)
 
   console.log('converting the images')
